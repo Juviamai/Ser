@@ -1,5 +1,7 @@
 # Ser — Study with real people, not just a timer 🌷
 
+**▶ Live demo: https://juviamai.github.io/Ser/**
+
 A working web-app prototype: match with real study partners, join offline study
 groups, or focus solo with an AI guardian that knows when you've earned a break.
 
@@ -14,6 +16,11 @@ npm run dev        # → http://localhost:3000
 ```
 
 Production build: `npm run build && npm start`
+
+**Deploy to GitHub Pages** (already live): `set NEXT_STATIC=1 && npm run build`
+then push the `out/` folder to the `gh-pages` branch. `next.config.ts` adds
+`basePath=/Ser` + `trailingSlash` only in static mode, so local dev stays on
+`http://localhost:3000`.
 
 > This repo was set up on a machine without a global Node install — a portable
 > Node lives in `.tools/node`. If you have your own Node/npm, the commands
