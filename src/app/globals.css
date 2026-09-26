@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Ser design language — "pearlescent calm"
+   Soft iridescent gradients (aqua/teal ↔ blush pink), glassmorphism,
+   airy light background with abstract light blooms.
+   ──────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-script: var(--font-caveat), "Segoe Script", cursive;
+
+  --color-ink: #2e3a4f;
+  --color-ink-soft: #5a6884;
+  --color-ink-faint: #8a96ad;
+
+  --color-aqua: #4fd8c6;
+  --color-aqua-deep: #0f9f8e;
+  --color-aqua-soft: #d5f5ef;
+
+  --color-blush: #ffc9de;
+  --color-rose: #f56fae;
+  --color-rose-soft: #ffe6f1;
+
+  --color-periwinkle: #8b97e8;
+  --color-lilac: #e2d7ff;
+  --color-pearl: #f7fbfa;
+
+  --radius-card: 1.5rem;
+
+  --shadow-glass: 0 8px 32px rgba(66, 90, 160, 0.10), 0 1.5px 0 rgba(255, 255, 255, 0.7) inset;
+  --shadow-glow: 0 0 40px rgba(79, 216, 198, 0.25);
+}
+
+/* ── base ────────────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-ink);
+  background-color: #eef3fa;
+  background-image:
+    radial-gradient(1100px 700px at 6% -8%, rgba(255, 255, 255, 0.9), transparent 55%),
+    radial-gradient(900px 620px at 8% -10%, rgba(122, 233, 216, 0.38), transparent 60%),
+    radial-gradient(880px 580px at 100% 0%, rgba(255, 199, 222, 0.42), transparent 62%),
+    radial-gradient(760px 660px at 55% 118%, rgba(190, 178, 246, 0.36), transparent 65%),
+    radial-gradient(560px 460px at 92% 78%, rgba(139, 151, 232, 0.20), transparent 60%),
+    linear-gradient(160deg, #e4ecf7 0%, #e9f2f3 40%, #f6edf4 100%);
+  background-attachment: fixed;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(79, 216, 198, 0.35);
+}
+
+/* Subtle, calm scrollbar */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(79, 110, 116, 0.22);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ── glass surfaces ──────────────────────────────────────────────────────── */
+
+.glass {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.42));
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-card);
+}
+
+.glass-strong {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62));
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 44px rgba(23, 56, 63, 0.1), 0 1.5px 0 rgba(255, 255, 255, 0.8) inset;
+  border-radius: var(--radius-card);
+}
+
+/* Pearl edge highlight like the reference imagery */
+.pearl-edge {
+  position: relative;
+}
+.pearl-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(180, 240, 230, 0.35), rgba(255, 214, 235, 0.45), rgba(255, 255, 255, 0.9));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── iridescent gradient & text ──────────────────────────────────────────── */
+
+.iridescent {
+  background: linear-gradient(115deg, #63e2cf 0%, #a7efe1 22%, #f2e8ff 48%, #ffc9de 74%, #ff9ec7 100%);
+}
+
+/* deep gradient for white-text surfaces (buttons, active nav) */
+.iridescent-deep {
+  background: linear-gradient(115deg, #17b3a1 0%, #5a9fd8 42%, #8b7ce0 68%, #f07ab4 100%);
+}
+
+.iridescent-animated {
+  background: linear-gradient(115deg, #63e2cf, #a7efe1, #f2e8ff, #ffc9de, #ff9ec7, #a7efe1, #63e2cf);
+  background-size: 300% 100%;
+  animation: iri-shift 9s ease-in-out infinite;
+}
+
+@keyframes iri-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.text-iridescent {
+  background: linear-gradient(100deg, #0f9f8e, #4fa8d8 40%, #8b7ce0 70%, #ef6fae);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* handwritten microcopy — faint, placed in empty areas */
+.script {
+  font-family: var(--font-script);
+  color: #7c88b8;
+  letter-spacing: 0.01em;
+}
+
+/* ── buttons ─────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background: linear-gradient(115deg, #12ab99 0%, #5a9fd8 45%, #8b7ce0 68%, #ee72ad 100%);
+  box-shadow: 0 6px 22px rgba(63, 158, 186, 0.4), 0 1px 0 rgba(255, 255, 255, 0.45) inset;
+  text-shadow: 0 1px 2px rgba(30, 60, 90, 0.25);
+}
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 9px 30px rgba(63, 158, 186, 0.55), 0 1px 0 rgba(255, 255, 255, 0.45) inset;
+  transform: translateY(-1px);
+}
+
+.btn-soft {
+  color: var(--color-ink);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 3px 14px rgba(23, 56, 63, 0.07);
+}
+.btn-soft:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.btn-ghost {
+  color: var(--color-ink-soft);
+  background: transparent;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--color-ink);
+}
+
+/* ── form controls ───────────────────────────────────────────────────────── */
+
+.field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.66);
+  padding: 0.72rem 1rem;
+  font-size: 0.925rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  backdrop-filter: blur(8px);
+}
+.field::placeholder {
+  color: var(--color-ink-faint);
+}
+.field:focus {
+  border-color: rgba(79, 216, 198, 0.65);
+  box-shadow: 0 0 0 4px rgba(79, 216, 198, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  backdrop-filter: blur(8px);
+}
+.chip:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+.chip-on {
+  background: linear-gradient(115deg, rgba(124, 234, 219, 0.95), rgba(255, 210, 232, 0.95));
+  color: #0e3a38;
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 3px 12px rgba(58, 208, 188, 0.3);
+}
+
+/* ── motion ──────────────────────────────────────────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(79, 216, 198, 0.35), 0 0 80px rgba(255, 158, 199, 0.18); }
+  50% { box-shadow: 0 0 46px rgba(79, 216, 198, 0.55), 0 0 110px rgba(255, 158, 199, 0.3); }
+}
+.pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.breathe {
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes sheen-sweep {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  60%, 100% { transform: translateX(240%) skewX(-18deg); }
+}
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  animation: sheen-sweep 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
